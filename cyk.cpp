@@ -109,9 +109,20 @@ int main(int argc, char** argv){
 						for(int c = 0; c < ruleCount; c++){
 							if(pro1[a] == rules[c][1] && pro2[b] == rules[c][2]){
 								// if so, add the rule C to the list at the current element of the matrix
-								int destRow = i-1;
-								int destCol = i+step-2;
-								matrix[stringLength*destRow+destCol] += rules[c][0];
+								int destRow = row1;
+								int destCol = col2;
+
+								// don't add the rule if it's already in the list
+								char thisRule = rules[c][0];
+								bool alreadyHas = false;
+								for(int symbol = 0; symbol < matrix[stringLength*destRow+destCol].length(); symbol++){
+									if(matrix[stringLength*destRow+destCol][symbol] == thisRule){
+										alreadyHas = true;
+									}
+								}
+								if(!alreadyHas){
+									matrix[stringLength*destRow+destCol] += thisRule;
+								}
 							}
 						}
 					}
